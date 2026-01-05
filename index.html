@@ -58,6 +58,7 @@
       border-bottom: 1px solid #e0e0e0;
       overflow-x: auto;
       flex-wrap: wrap;
+      justify-content: center;
     }
 
     .feature-btn {
@@ -66,7 +67,7 @@
       border: 2px solid #667eea;
       color: #667eea;
       border-radius: 20px;
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       transition: all 0.2s;
       white-space: nowrap;
@@ -77,10 +78,16 @@
       background: #667eea;
       color: white;
       transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
     }
 
     .feature-btn:active {
       transform: translateY(0);
+    }
+
+    .feature-btn.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
     }
 
     .chat-messages {
@@ -317,6 +324,124 @@
       color: #667eea;
     }
 
+    .api-key-container {
+      padding: 15px 20px;
+      background: #fff3cd;
+      border-bottom: 2px solid #ffc107;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .api-key-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 8px 12px;
+      border: 2px solid #ffc107;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    .api-key-btn {
+      padding: 8px 20px;
+      background: #ffc107;
+      color: #333;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .api-key-btn:hover {
+      background: #ffca2c;
+      transform: translateY(-2px);
+    }
+
+    .api-key-status {
+      font-size: 13px;
+      color: #856404;
+    }
+
+    .api-key-container.connected {
+      background: #d4edda;
+      border-bottom-color: #28a745;
+    }
+
+    .api-key-container.connected .api-key-btn {
+      background: #28a745;
+      color: white;
+    }
+
+    .api-key-container.connected .api-key-status {
+      color: #155724;
+    }
+
+    .generated-image {
+      max-width: 100%;
+      border-radius: 10px;
+      margin: 10px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .download-btn {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      margin-top: 10px;
+      transition: all 0.2s;
+    }
+
+    .download-btn:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+    }
+
+    .code-block {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 10px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      position: relative;
+    }
+
+    .copy-code-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+
+    .copy-code-btn:hover {
+      background: #764ba2;
+    }
+
+    .tool-indicator {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+
     .typing-indicator {
       display: flex;
       gap: 5px;
@@ -356,24 +481,44 @@
       <div class="subtitle">Your Advanced AI Assistant</div>
       <button class="clear-chat-btn" id="clearChatBtn">🗑️ Clear Chat</button>
     </div>
+    
+    <div class="api-key-container" id="apiKeyContainer">
+      <span class="api-key-status" id="apiKeyStatus">⚠️ API Key Required:</span>
+      <input 
+        type="password" 
+        class="api-key-input" 
+        id="apiKeyInput" 
+        placeholder="Enter your Anthropic API Key (sk-ant-...)"
+      >
+      <button class="api-key-btn" id="apiKeyBtn">Connect</button>
+      <div style="width: 100%; font-size: 11px; color: #856404;">
+        Get your free API key at <a href="https://console.anthropic.com/" target="_blank" style="color: #667eea;">console.anthropic.com</a>
+      </div>
+    </div>
     <div class="feature-buttons">
-      <button class="feature-btn" id="summarizeBtn">📄 Summarize Text</button>
+      <button class="feature-btn" id="imageGenBtn">🎨 Generate Image</button>
+      <button class="feature-btn" id="webSearchBtn">🔍 Web Search</button>
+      <button class="feature-btn" id="summarizeBtn">📄 Summarize</button>
       <button class="feature-btn" id="translateBtn">🌐 Translate</button>
-      <button class="feature-btn" id="codeBtn">💻 Write Code</button>
-      <button class="feature-btn" id="creativeBtn">✨ Creative Writing</button>
-      <button class="feature-btn" id="mathBtn">🔢 Math Solver</button>
-      <button class="feature-btn" id="explainBtn">🎓 Explain Like I'm 5</button>
+      <button class="feature-btn" id="codeBtn">💻 Code</button>
+      <button class="feature-btn" id="creativeBtn">✨ Creative</button>
+      <button class="feature-btn" id="mathBtn">🔢 Math</button>
+      <button class="feature-btn" id="explainBtn">🎓 Explain</button>
+      <button class="feature-btn" id="analyzeBtn">📊 Analyze</button>
+      <button class="feature-btn" id="diagramBtn">📈 Diagram</button>
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="message assistant">
         <div class="message-content">
-          Hello! I'm Gordon's Smart Brain, your advanced AI assistant. I can help you with:
+          🧠 Welcome to <strong>Gordon's Smart Brain</strong> - Your Ultimate AI Assistant!
           <br><br>
-          📷 Image analysis • 📄 Text summarization • 🌐 Translation • 💻 Coding
+          <strong>I can help you with:</strong><br>
+          🎨 Generate images from text • 🔍 Search the web in real-time<br>
+          📷 Analyze images • 📄 Summarize documents • 🌐 Translate languages<br>
+          💻 Write & debug code • ✨ Creative writing • 🔢 Solve math problems<br>
+          📊 Data analysis • 📈 Create diagrams • 🎓 Explain complex topics<br>
           <br>
-          ✨ Creative writing • 🔢 Math problems • 🎓 Explanations & more!
-          <br><br>
-          Click the feature buttons above or just ask me anything!
+          Click any feature button above or just ask me anything! I'm here to help! 🚀
         </div>
       </div>
     </div>
@@ -432,6 +577,28 @@
     </div>
   </div>
 
+  <div class="modal" id="imageGenModal">
+    <div class="modal-content">
+      <h3>🎨 Generate Image</h3>
+      <textarea id="imageGenText" rows="4" placeholder="Describe the image you want to create...&#10;Example: A serene sunset over mountains with a lake"></textarea>
+      <div class="modal-buttons">
+        <button class="modal-btn primary" id="imageGenSubmit">Generate</button>
+        <button class="modal-btn secondary" id="imageGenCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="webSearchModal">
+    <div class="modal-content">
+      <h3>🔍 Web Search</h3>
+      <input type="text" id="webSearchText" placeholder="What do you want to search for?" style="width: 100%; padding: 10px; border: 2px solid #e0e0e0; border-radius: 10px; margin: 10px 0;">
+      <div class="modal-buttons">
+        <button class="modal-btn primary" id="webSearchSubmit">Search</button>
+        <button class="modal-btn secondary" id="webSearchCancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const chatMessages = document.getElementById('chatMessages');
     const chatInput = document.getElementById('chatInput');
@@ -440,8 +607,49 @@
     const imageInput = document.getElementById('imageInput');
     const imagePreviewContainer = document.getElementById('imagePreviewContainer');
     const clearChatBtn = document.getElementById('clearChatBtn');
+    const apiKeyInput = document.getElementById('apiKeyInput');
+    const apiKeyBtn = document.getElementById('apiKeyBtn');
+    const apiKeyContainer = document.getElementById('apiKeyContainer');
+    const apiKeyStatus = document.getElementById('apiKeyStatus');
+    
     let conversationHistory = [];
     let currentImage = null;
+    let apiKey = '';
+
+    // Check for saved API key
+    const savedKey = localStorage.getItem('anthropic_api_key');
+    if (savedKey) {
+      apiKey = savedKey;
+      apiKeyInput.value = savedKey;
+      updateApiKeyStatus(true);
+    }
+
+    // API Key management
+    apiKeyBtn.addEventListener('click', () => {
+      const key = apiKeyInput.value.trim();
+      if (key.startsWith('sk-ant-')) {
+        apiKey = key;
+        localStorage.setItem('anthropic_api_key', key);
+        updateApiKeyStatus(true);
+        addMessage('✅ API Key connected! You can now start chatting.', false);
+      } else {
+        alert('Please enter a valid Anthropic API key (starts with sk-ant-)');
+      }
+    });
+
+    function updateApiKeyStatus(connected) {
+      if (connected) {
+        apiKeyContainer.classList.add('connected');
+        apiKeyStatus.textContent = '✅ Connected';
+        apiKeyBtn.textContent = 'Update';
+        sendButton.disabled = false;
+      } else {
+        apiKeyContainer.classList.remove('connected');
+        apiKeyStatus.textContent = '⚠️ API Key Required:';
+        apiKeyBtn.textContent = 'Connect';
+        sendButton.disabled = true;
+      }
+    }
 
     // Feature buttons
     const summarizeBtn = document.getElementById('summarizeBtn');
@@ -450,11 +658,17 @@
     const creativeBtn = document.getElementById('creativeBtn');
     const mathBtn = document.getElementById('mathBtn');
     const explainBtn = document.getElementById('explainBtn');
+    const imageGenBtn = document.getElementById('imageGenBtn');
+    const webSearchBtn = document.getElementById('webSearchBtn');
+    const analyzeBtn = document.getElementById('analyzeBtn');
+    const diagramBtn = document.getElementById('diagramBtn');
 
     // Modals
     const summarizeModal = document.getElementById('summarizeModal');
     const translateModal = document.getElementById('translateModal');
     const mathModal = document.getElementById('mathModal');
+    const imageGenModal = document.getElementById('imageGenModal');
+    const webSearchModal = document.getElementById('webSearchModal');
 
     // Clear chat functionality
     clearChatBtn.addEventListener('click', () => {
@@ -498,6 +712,24 @@
       chatInput.focus();
     });
 
+    imageGenBtn.addEventListener('click', () => {
+      imageGenModal.style.display = 'flex';
+    });
+
+    webSearchBtn.addEventListener('click', () => {
+      webSearchModal.style.display = 'flex';
+    });
+
+    analyzeBtn.addEventListener('click', () => {
+      chatInput.value = 'Analyze and provide insights on: ';
+      chatInput.focus();
+    });
+
+    diagramBtn.addEventListener('click', () => {
+      chatInput.value = 'Create a diagram showing: ';
+      chatInput.focus();
+    });
+
     // Modal handlers
     document.getElementById('summarizeCancel').addEventListener('click', () => {
       summarizeModal.style.display = 'none';
@@ -509,6 +741,14 @@
 
     document.getElementById('mathCancel').addEventListener('click', () => {
       mathModal.style.display = 'none';
+    });
+
+    document.getElementById('imageGenCancel').addEventListener('click', () => {
+      imageGenModal.style.display = 'none';
+    });
+
+    document.getElementById('webSearchCancel').addEventListener('click', () => {
+      webSearchModal.style.display = 'none';
     });
 
     document.getElementById('summarizeSubmit').addEventListener('click', () => {
@@ -539,6 +779,26 @@
         chatInput.value = `Solve this math problem step by step: ${text}`;
         mathModal.style.display = 'none';
         document.getElementById('mathText').value = '';
+        sendMessage();
+      }
+    });
+
+    document.getElementById('imageGenSubmit').addEventListener('click', () => {
+      const text = document.getElementById('imageGenText').value;
+      if (text) {
+        chatInput.value = `Generate an image: ${text}`;
+        imageGenModal.style.display = 'none';
+        document.getElementById('imageGenText').value = '';
+        sendMessage();
+      }
+    });
+
+    document.getElementById('webSearchSubmit').addEventListener('click', () => {
+      const text = document.getElementById('webSearchText').value;
+      if (text) {
+        chatInput.value = `Search the web for: ${text}`;
+        webSearchModal.style.display = 'none';
+        document.getElementById('webSearchText').value = '';
         sendMessage();
       }
     });
@@ -601,12 +861,49 @@
           messageContent.appendChild(text);
         }
       } else {
-        messageContent.textContent = content;
+        // Parse and format content with code blocks
+        const formattedContent = formatContent(content);
+        messageContent.innerHTML = formattedContent;
       }
       
       messageDiv.appendChild(messageContent);
       chatMessages.appendChild(messageDiv);
       chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      // Add copy buttons to code blocks
+      messageContent.querySelectorAll('.code-block').forEach(block => {
+        const copyBtn = block.querySelector('.copy-code-btn');
+        if (copyBtn) {
+          copyBtn.addEventListener('click', () => {
+            const code = block.textContent.replace('Copy', '').trim();
+            navigator.clipboard.writeText(code);
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => copyBtn.textContent = 'Copy', 2000);
+          });
+        }
+      });
+    }
+
+    function formatContent(content) {
+      // Detect code blocks
+      if (content.includes('```')) {
+        return content.split('```').map((part, index) => {
+          if (index % 2 === 1) {
+            const lines = part.split('\n');
+            const lang = lines[0];
+            const code = lines.slice(1).join('\n');
+            return `<div class="code-block"><button class="copy-code-btn">Copy</button>${escapeHtml(code)}</div>`;
+          }
+          return escapeHtml(part).replace(/\n/g, '<br>');
+        }).join('');
+      }
+      return escapeHtml(content).replace(/\n/g, '<br>');
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
     }
 
     function showTypingIndicator() {
@@ -633,6 +930,12 @@
     async function sendMessage() {
       const message = chatInput.value.trim();
       if (!message && !currentImage) return;
+      
+      if (!apiKey) {
+        alert('Please enter your API key first!');
+        apiKeyInput.focus();
+        return;
+      }
 
       const imageToSend = currentImage;
       
@@ -686,21 +989,63 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'x-api-key': apiKey,
+            'anthropic-version': '2023-06-01'
           },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 1000,
-            messages: conversationHistory
+            max_tokens: 4000,
+            messages: conversationHistory,
+            tools: [
+              {
+                type: "web_search_20250305",
+                name: "web_search"
+              }
+            ]
           })
         });
 
         const data = await response.json();
         removeTypingIndicator();
 
-        if (data.content && data.content[0]) {
-          const aiResponse = data.content[0].text;
-          addMessage(aiResponse, false);
-          conversationHistory.push({ role: 'assistant', content: aiResponse });
+        if (!response.ok) {
+          if (response.status === 401) {
+            addMessage('❌ Invalid API Key. Please check your API key and try again.', false);
+            updateApiKeyStatus(false);
+            localStorage.removeItem('anthropic_api_key');
+          } else {
+            addMessage(`❌ Error: ${data.error?.message || 'Unknown error occurred'}`, false);
+          }
+          sendButton.disabled = false;
+          return;
+        }
+
+        if (data.content && data.content.length > 0) {
+          let fullResponse = '';
+          let toolsUsed = [];
+
+          // Process all content blocks
+          for (const block of data.content) {
+            if (block.type === 'text') {
+              fullResponse += block.text;
+            } else if (block.type === 'tool_use') {
+              toolsUsed.push(block.name);
+            }
+          }
+
+          // Show tools used indicator
+          if (toolsUsed.length > 0) {
+            const toolIndicators = toolsUsed.map(tool => 
+              `<span class="tool-indicator">${tool === 'web_search' ? '🔍 Web Search' : tool}</span>`
+            ).join('');
+            fullResponse = toolIndicators + '<br>' + fullResponse;
+          }
+
+          addMessage(fullResponse || 'I processed your request!', false);
+          conversationHistory.push({ 
+            role: 'assistant', 
+            content: data.content 
+          });
         } else {
           addMessage('Sorry, I encountered an error. Please try again.', false);
         }
