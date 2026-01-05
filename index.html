@@ -543,7 +543,6 @@
       </div>
     </div>
     <div class="feature-buttons">
-      <button class="feature-btn" id="imageGenBtn">🎨 Generate Image</button>
       <button class="feature-btn" id="webSearchBtn">🔍 Web Search</button>
       <button class="feature-btn" id="summarizeBtn">📄 Summarize</button>
       <button class="feature-btn" id="translateBtn">🌐 Translate</button>
@@ -560,10 +559,12 @@
           🧠 Welcome to <strong>Gordon's Smart Brain</strong> - Your Ultimate AI Assistant!
           <br><br>
           <strong>I can help you with:</strong><br>
-          🎨 Generate images from text • 🔍 Search the web in real-time<br>
-          📷 Analyze images • 📄 Summarize documents • 🌐 Translate languages<br>
-          💻 Write & debug code • ✨ Creative writing • 🔢 Solve math problems<br>
-          📊 Data analysis • 📈 Create diagrams • 🎓 Explain complex topics<br>
+          🔍 Search the web in real-time • 📷 Analyze & describe images<br>
+          📄 Summarize documents • 🌐 Translate languages • 💻 Write & debug code<br>
+          ✨ Creative writing • 🔢 Solve math problems • 📊 Data analysis<br>
+          📈 Create diagrams & flowcharts • 🎓 Explain complex topics simply<br>
+          <br>
+          <strong>Note:</strong> I cannot generate, create, or produce images. I can only analyze images you share with me!<br>
           <br>
           Click any feature button above or just ask me anything! I'm here to help! 🚀
         </div>
@@ -620,17 +621,6 @@
       <div class="modal-buttons">
         <button class="modal-btn primary" id="mathSubmit">Solve</button>
         <button class="modal-btn secondary" id="mathCancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal" id="imageGenModal">
-    <div class="modal-content">
-      <h3>🎨 Generate Image</h3>
-      <textarea id="imageGenText" rows="4" placeholder="Describe the image you want to create...&#10;Example: A serene sunset over mountains with a lake"></textarea>
-      <div class="modal-buttons">
-        <button class="modal-btn primary" id="imageGenSubmit">Generate</button>
-        <button class="modal-btn secondary" id="imageGenCancel">Cancel</button>
       </div>
     </div>
   </div>
@@ -722,7 +712,6 @@
     const creativeBtn = document.getElementById('creativeBtn');
     const mathBtn = document.getElementById('mathBtn');
     const explainBtn = document.getElementById('explainBtn');
-    const imageGenBtn = document.getElementById('imageGenBtn');
     const webSearchBtn = document.getElementById('webSearchBtn');
     const analyzeBtn = document.getElementById('analyzeBtn');
     const diagramBtn = document.getElementById('diagramBtn');
@@ -731,7 +720,6 @@
     const summarizeModal = document.getElementById('summarizeModal');
     const translateModal = document.getElementById('translateModal');
     const mathModal = document.getElementById('mathModal');
-    const imageGenModal = document.getElementById('imageGenModal');
     const webSearchModal = document.getElementById('webSearchModal');
 
     // Clear chat functionality
@@ -776,10 +764,6 @@
       chatInput.focus();
     });
 
-    imageGenBtn.addEventListener('click', () => {
-      imageGenModal.style.display = 'flex';
-    });
-
     webSearchBtn.addEventListener('click', () => {
       webSearchModal.style.display = 'flex';
     });
@@ -805,10 +789,6 @@
 
     document.getElementById('mathCancel').addEventListener('click', () => {
       mathModal.style.display = 'none';
-    });
-
-    document.getElementById('imageGenCancel').addEventListener('click', () => {
-      imageGenModal.style.display = 'none';
     });
 
     document.getElementById('webSearchCancel').addEventListener('click', () => {
@@ -843,16 +823,6 @@
         chatInput.value = `Solve this math problem step by step: ${text}`;
         mathModal.style.display = 'none';
         document.getElementById('mathText').value = '';
-        sendMessage();
-      }
-    });
-
-    document.getElementById('imageGenSubmit').addEventListener('click', () => {
-      const text = document.getElementById('imageGenText').value;
-      if (text) {
-        chatInput.value = `Generate an image: ${text}`;
-        imageGenModal.style.display = 'none';
-        document.getElementById('imageGenText').value = '';
         sendMessage();
       }
     });
