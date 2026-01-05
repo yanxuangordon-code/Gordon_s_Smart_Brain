@@ -492,7 +492,8 @@
       >
       <button class="api-key-btn" id="apiKeyBtn">Connect</button>
       <div style="width: 100%; font-size: 11px; color: #856404;">
-        Get your free API key at <a href="https://console.anthropic.com/" target="_blank" style="color: #667eea;">console.anthropic.com</a>
+        <strong>Note:</strong> Direct API calls from browser are blocked by CORS. Use this locally or deploy with a backend proxy.
+        <br>Or try it in the <a href="https://claude.ai" target="_blank" style="color: #667eea;">official Claude.ai</a>
       </div>
     </div>
     <div class="feature-buttons">
@@ -1051,8 +1052,14 @@
         }
       } catch (error) {
         removeTypingIndicator();
-        addMessage('Sorry, I encountered an error connecting to the AI. Please try again.', false);
         console.error('Error:', error);
+        
+        // Provide helpful error message
+        if (error.message.includes('CORS') || error.message.includes('fetch')) {
+          addMessage('❌ CORS Error: Direct API calls from browser are blocked. To fix this:\n\n1. Run this HTML file locally (open directly in browser)\n2. Use a CORS proxy (not recommended for production)\n3. Deploy with a backend server that proxies API requests\n4. Or use the official Claude.ai web interface\n\nFor local testing, save this HTML and open it as a file:// URL.', false);
+        } else {
+          addMessage('❌ Connection error: ' + error.message, false);
+        }
       }
 
       sendButton.disabled = false;
