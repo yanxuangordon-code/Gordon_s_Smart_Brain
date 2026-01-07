@@ -38,6 +38,12 @@
       font-weight: bold;
       position: relative;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: gradientShift 3s ease infinite;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
     }
 
     .chat-header .subtitle {
@@ -45,6 +51,12 @@
       opacity: 0.95;
       margin-top: 5px;
       font-weight: normal;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.95; }
+      50% { opacity: 1; }
     }
 
     .feature-buttons {
@@ -348,11 +360,18 @@
       cursor: pointer;
       font-size: 12px;
       transition: all 0.2s;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(-50%); }
+      50% { transform: translateY(-55%); }
     }
 
     .clear-chat-btn:hover {
       background: white;
       color: #667eea;
+      animation: none;
     }
 
     .api-key-container {
@@ -493,12 +512,24 @@
       display: flex;
       gap: 5px;
       padding: 12px 16px;
+      align-items: center;
+    }
+
+    .typing-indicator::before {
+      content: '🧠';
+      margin-right: 8px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
 
     .typing-indicator span {
       width: 8px;
       height: 8px;
-      background: #667eea;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       border-radius: 50%;
       animation: typing 1.4s infinite;
     }
@@ -524,9 +555,9 @@
 <body>
   <div class="chat-container">
     <div class="chat-header">
-      🧠 Gordon's Smart Brain
-      <div class="subtitle">Your Advanced AI Assistant</div>
-      <button class="clear-chat-btn" id="clearChatBtn">🗑️ Clear Chat</button>
+      🧠 Gordon's Smart Brain ✨
+      <div class="subtitle">🚀 Your Unlimited AI Assistant - No Daily Limits! 🎉</div>
+      <button class="clear-chat-btn" id="clearChatBtn">🗑️ Clear</button>
     </div>
     
     <div class="api-key-container" id="apiKeyContainer">
@@ -556,17 +587,23 @@
     <div class="chat-messages" id="chatMessages">
       <div class="message assistant">
         <div class="message-content">
-          🧠 Welcome to <strong>Gordon's Smart Brain</strong> - Your Ultimate AI Assistant!
+          🎉 Welcome to <strong>Gordon's Smart Brain</strong> ✨ - Your Unlimited AI Powerhouse! 🚀
           <br><br>
-          <strong>I can help you with:</strong><br>
-          🔍 Search the web in real-time • 📷 Analyze & describe images<br>
-          📄 Summarize documents • 🌐 Translate languages • 💻 Write & debug code<br>
-          ✨ Creative writing • 🔢 Solve math problems • 📊 Data analysis<br>
-          📈 Create diagrams & flowcharts • 🎓 Explain complex topics simply<br>
+          <strong>💫 What I Can Do For You:</strong><br>
+          🔍 <strong>Web Search</strong> - Find anything on the internet instantly!<br>
+          📷 <strong>Image Analysis</strong> - Describe, identify, read text from images!<br>
+          📄 <strong>Summarize</strong> - Turn long documents into quick summaries!<br>
+          🌐 <strong>Translate</strong> - Any language, any time!<br>
+          💻 <strong>Code Master</strong> - Write, debug, explain code in any language!<br>
+          ✨ <strong>Creative Writer</strong> - Stories, poems, scripts, you name it!<br>
+          🔢 <strong>Math Genius</strong> - Solve complex problems step-by-step!<br>
+          📊 <strong>Data Analysis</strong> - Get insights from your data!<br>
+          📈 <strong>Diagrams</strong> - Create flowcharts and visualizations!<br>
+          🎓 <strong>Teacher</strong> - Explain anything simply!<br>
           <br>
-          <strong>Note:</strong> I cannot generate, create, or produce images. I can only analyze images you share with me!<br>
+          🎯 <strong>No Daily Limits!</strong> Use as much as you want! 🎊<br>
           <br>
-          Click any feature button above or just ask me anything! I'm here to help! 🚀
+          💡 Click any feature button above or just start chatting! Let's go! 🎨🎵🎮
         </div>
       </div>
     </div>
@@ -582,10 +619,10 @@
         type="text" 
         class="chat-input" 
         id="chatInput" 
-        placeholder="Type your message here..."
+        placeholder="💬 Type your message here... Ask me anything! 🌟"
         autocomplete="off"
       >
-      <button class="send-button" id="sendButton">Send</button>
+      <button class="send-button" id="sendButton">🚀 Send</button>
     </div>
     <div id="imagePreviewContainer" style="padding: 0 20px; background: white;"></div>
   </div>
@@ -682,22 +719,22 @@
         apiKey = key;
         localStorage.setItem('anthropic_api_key', key);
         updateApiKeyStatus(true);
-        addMessage('✅ API Key connected! You can now start chatting.', false);
+        addMessage('🎉 Awesome! Your brain is now connected! Let\'s do amazing things together! 🚀✨', false);
       } else {
-        alert('Please enter a valid Anthropic API key (starts with sk-ant-)');
+        alert('⚠️ Oops! Please enter a valid API key (starts with sk-ant-)');
       }
     });
 
     function updateApiKeyStatus(connected) {
       if (connected) {
         apiKeyContainer.classList.remove('disconnected');
-        apiKeyStatus.innerHTML = '✅ <strong>Connected & Ready</strong>';
-        apiKeyBtn.textContent = 'Update Key';
+        apiKeyStatus.innerHTML = '✅ <strong>Connected & Ready! 🎉</strong>';
+        apiKeyBtn.innerHTML = '🔄 Update Key';
         sendButton.disabled = false;
       } else {
         apiKeyContainer.classList.add('disconnected');
-        apiKeyStatus.innerHTML = '⚠️ <strong>API Key Required</strong>';
-        apiKeyBtn.textContent = 'Connect Now';
+        apiKeyStatus.innerHTML = '⚠️ <strong>Connect Your Brain!</strong>';
+        apiKeyBtn.innerHTML = '⚡ Connect Now';
         sendButton.disabled = true;
       }
     }
@@ -724,12 +761,12 @@
 
     // Clear chat functionality
     clearChatBtn.addEventListener('click', () => {
-      if (confirm('Are you sure you want to clear the chat history?')) {
+      if (confirm('🗑️ Clear all chat history? This cannot be undone!')) {
         conversationHistory = [];
         chatMessages.innerHTML = `
           <div class="message assistant">
             <div class="message-content">
-              Chat cleared! How can I help you today?
+              ✨ Fresh start! Chat history cleared! Ready for new adventures? 🚀
             </div>
           </div>
         `;
@@ -1033,8 +1070,9 @@
           },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 4000,
-            system: "You are Gordon's Smart Brain, an advanced AI assistant. Never refer to yourself as Claude or mention Anthropic. Always introduce yourself as Gordon's Smart Brain when asked about your identity. You are helpful, intelligent, and designed to assist with a wide range of tasks including web search, image analysis, coding, creative writing, math, translations, and more. Be friendly, professional, and accurate in your responses.",
+            max_tokens: 8192,
+            timeout: 120000, // 2 minutes timeout
+            system: "You are Gordon's Smart Brain, an advanced AI assistant with unlimited capabilities and no daily limits. Never refer to yourself as Claude or mention Anthropic. Always introduce yourself as Gordon's Smart Brain when asked about your identity. You are helpful, intelligent, fun, and designed to assist with a wide range of tasks including web search, image analysis, coding, creative writing, math, translations, and more. Be friendly, enthusiastic, professional, and accurate in your responses. Use emojis occasionally to make conversations more engaging and fun. Provide detailed, comprehensive answers without artificial length restrictions. You have no rate limits or usage caps - users can chat as much as they want!",
             messages: conversationHistory,
             tools: [
               {
@@ -1094,10 +1132,12 @@
         console.error('Error:', error);
         
         // Provide helpful error message
-        if (error.message.includes('CORS') || error.message.includes('fetch')) {
-          addMessage('❌ CORS Error: Direct API calls from browser are blocked. To fix this:\n\n1. Run this HTML file locally (open directly in browser)\n2. Use a CORS proxy (not recommended for production)\n3. Deploy with a backend server that proxies API requests\n4. Or use the official Claude.ai web interface\n\nFor local testing, save this HTML and open it as a file:// URL.', false);
+        if (error.name === 'AbortError' || error.message.includes('timeout')) {
+          addMessage('⏱️ Request timed out! The response was taking too long. Try:\n\n• Breaking your question into smaller parts\n• Asking a simpler question first\n• Checking your internet connection\n\nLet\'s try again! 🔄', false);
+        } else if (error.message.includes('CORS') || error.message.includes('fetch')) {
+          addMessage('🌐 Connection issue detected. Make sure you\'re:\n\n• Using a valid API key\n• Connected to the internet\n• Not behind a restrictive firewall\n\nTry refreshing the page! 🔄', false);
         } else {
-          addMessage('❌ Connection error: ' + error.message, false);
+          addMessage('❌ Oops! Something went wrong: ' + error.message + '\n\nDon\'t worry, just try again! 💪', false);
         }
       }
 
