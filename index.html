@@ -61,8 +61,8 @@
 
     .feature-buttons {
       display: flex;
-      gap: 6px;
-      padding: 8px 20px;
+      gap: 4px;
+      padding: 5px 12px;
       background: #f8f9fa;
       border-bottom: 1px solid #e0e0e0;
       overflow-x: auto;
@@ -71,24 +71,24 @@
     }
 
     .feature-btn {
-      padding: 5px 10px;
+      padding: 4px 8px;
       background: white;
-      border: 1.5px solid #667eea;
+      border: 1px solid #667eea;
       color: #667eea;
-      border-radius: 15px;
-      font-size: 10px;
+      border-radius: 12px;
+      font-size: 9px;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
       font-weight: 600;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
     }
 
     .feature-btn:hover {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(102, 126, 234, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(102, 126, 234, 0.4);
       border-color: transparent;
     }
 
@@ -176,7 +176,7 @@
     .message-content strong {
       color: #667eea;
       font-weight: 700;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .message.user .message-content strong {
@@ -187,30 +187,30 @@
     .message-content em {
       color: #764ba2;
       font-style: italic;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .message-content h1, .message-content h2, .message-content h3 {
       color: #667eea;
-      margin: 10px 0 6px 0;
+      margin: 8px 0 5px 0;
       font-weight: bold;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .message-content ul, .message-content ol {
-      margin: 6px 0;
-      padding-left: 20px;
-      font-size: 13px;
+      margin: 5px 0;
+      padding-left: 18px;
+      font-size: 14px;
     }
 
     .message-content li {
-      margin: 3px 0;
+      margin: 2px 0;
     }
 
     .message-content a {
       color: #667eea;
       text-decoration: underline;
-      font-size: 13px;
+      font-size: 14px;
     }
 
     .message-content a:hover {
@@ -223,34 +223,34 @@
       border-radius: 3px;
       font-weight: 600;
       color: #333;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .info-box {
       background: #e3f2fd;
       border-left: 3px solid #2196f3;
-      padding: 8px;
-      margin: 6px 0;
+      padding: 6px;
+      margin: 5px 0;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .success-box {
       background: #e8f5e9;
       border-left: 3px solid #4caf50;
-      padding: 8px;
-      margin: 6px 0;
+      padding: 6px;
+      margin: 5px 0;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .warning-box {
       background: #fff3e0;
       border-left: 3px solid #ff9800;
-      padding: 8px;
-      margin: 6px 0;
+      padding: 6px;
+      margin: 5px 0;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 14px;
     }
 
     .chat-input-container {
@@ -433,23 +433,24 @@
     }
 
     .clear-chat-btn {
-      background: rgba(255,255,255,0.25);
-      border: 1.5px solid rgba(255,255,255,0.9);
+      background: #ff4444;
+      border: 1px solid #cc0000;
       color: white;
-      padding: 4px 10px;
-      border-radius: 14px;
+      padding: 5px 12px;
+      border-radius: 15px;
       cursor: pointer;
-      font-size: 9px;
+      font-size: 10px;
       font-weight: bold;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
+      box-shadow: 0 2px 4px rgba(255, 68, 68, 0.3);
     }
 
     .clear-chat-btn:hover {
-      background: white;
-      color: #667eea;
-      transform: translateY(-1px);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      background: #ff0000;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(255, 68, 68, 0.5);
     }
 
     .clear-chat-btn:active {
@@ -457,14 +458,23 @@
     }
 
     .api-key-container {
-      padding: 6px 20px;
+      padding: 4px 12px;
       background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
       border-bottom: 1px solid #28a745;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       align-items: center;
       flex-wrap: wrap;
       transition: all 0.3s ease;
+      max-height: 50px;
+      overflow: hidden;
+    }
+
+    .api-key-container.hidden {
+      max-height: 0;
+      padding: 0 12px;
+      border-bottom: 0;
+      opacity: 0;
     }
 
     .api-key-container.disconnected {
@@ -474,11 +484,11 @@
 
     .api-key-input {
       flex: 1;
-      min-width: 180px;
-      padding: 5px 10px;
+      min-width: 150px;
+      padding: 4px 8px;
       border: 1px solid #28a745;
-      border-radius: 15px;
-      font-size: 11px;
+      border-radius: 12px;
+      font-size: 10px;
       transition: all 0.2s;
     }
 
@@ -493,15 +503,15 @@
     }
 
     .api-key-btn {
-      padding: 5px 14px;
+      padding: 4px 10px;
       background: #28a745;
       color: white;
       border: none;
-      border-radius: 15px;
+      border-radius: 12px;
       cursor: pointer;
       font-weight: bold;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      font-size: 11px;
+      font-size: 10px;
     }
 
     .api-key-container.disconnected .api-key-btn {
@@ -511,7 +521,7 @@
 
     .api-key-btn:hover {
       transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
     .api-key-btn:active {
@@ -519,12 +529,12 @@
     }
 
     .api-key-status {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       color: #155724;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
     }
 
     .api-key-container.disconnected .api-key-status {
@@ -534,20 +544,21 @@
     .mode-selector {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 8px;
     }
 
     .mode-label {
-      font-weight: 600;
+      font-weight: 700;
       color: white;
-      font-size: 8px;
+      font-size: 11px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.2);
     }
 
     .mode-toggle {
       position: relative;
       display: inline-block;
-      width: 85px;
-      height: 22px;
+      width: 130px;
+      height: 32px;
     }
 
     .mode-toggle input {
@@ -565,55 +576,59 @@
       bottom: 0;
       background: rgba(255,255,255,0.25);
       transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 25px;
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
     }
 
     .mode-slider:hover {
       background: rgba(255,255,255,0.3);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.3);
     }
 
     .mode-slider:before {
       position: absolute;
       content: "";
-      height: 17px;
-      width: 40px;
-      left: 2.5px;
-      bottom: 2.5px;
-      background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+      height: 26px;
+      width: 62px;
+      left: 3px;
+      bottom: 3px;
+      background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
       transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border-radius: 14px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.25);
+      border-radius: 17px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     }
 
     input:checked + .mode-slider:before {
-      transform: translateX(40px);
+      transform: translateX(62px);
     }
 
     .mode-text {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      font-size: 7px;
-      font-weight: 700;
+      font-size: 11px;
+      font-weight: 800;
       pointer-events: none;
-      transition: 0.4s;
+      transition: all 0.3s;
       color: #333;
+      letter-spacing: 0.3px;
     }
 
     .mode-text.left {
-      left: 5px;
+      left: 8px;
       opacity: 0.5;
     }
 
     .mode-text.right {
-      right: 5px;
+      right: 8px;
       opacity: 0.5;
     }
 
     input:checked ~ .mode-text.left {
       opacity: 1;
       color: #000;
+      transform: translateY(-50%) scale(1.05);
     }
 
     input:checked ~ .mode-text.right {
@@ -627,6 +642,7 @@
     input:not(:checked) ~ .mode-text.right {
       opacity: 1;
       color: #000;
+      transform: translateY(-50%) scale(1.05);
     }
 
     .typing-animation {
@@ -758,10 +774,6 @@
   <div class="chat-container">
     <div class="chat-header">
       <div class="header-left">
-        <div class="header-title">🧠 Gordon's Smart Brain ✨</div>
-        <div class="header-subtitle">🚀 Your Unlimited AI Assistant - No Daily Limits! 🎉</div>
-      </div>
-      <div class="header-right">
         <div class="mode-selector">
           <span class="mode-label">Mode:</span>
           <label class="mode-toggle">
@@ -772,7 +784,12 @@
             </span>
           </label>
         </div>
-        <button class="clear-chat-btn" id="clearChatBtn">🗑️ Clear</button>
+      </div>
+      <div class="header-center">
+        <div class="header-title">🧠 Gordon's Smart Brain ✨</div>
+        <div class="header-subtitle">🚀 Your Unlimited AI Assistant - No Daily Limits! 🎉</div>
+      </div>
+      <div class="header-right">
       </div>
     </div>
     
@@ -829,6 +846,7 @@
         autocomplete="off"
       >
       <button class="send-button" id="sendButton">🚀 Send</button>
+      <button class="clear-chat-btn" id="clearChatBtn">🗑️ Clear</button>
     </div>
     <div id="imagePreviewContainer" style="padding: 0 20px; background: white;"></div>
   </div>
@@ -912,13 +930,12 @@
       apiKeyInput.value = savedKey;
       updateApiKeyStatus(true);
       sendButton.disabled = false; // Ensure send button is enabled
-      // Auto-hide API key section after 2 seconds if connected
+      // Hide API key section after connection
       setTimeout(() => {
         if (apiKey) {
-          apiKeyContainer.style.maxHeight = '60px';
-          apiKeyContainer.style.overflow = 'hidden';
+          apiKeyContainer.classList.add('hidden');
         }
-      }, 2000);
+      }, 1500);
     } else {
       sendButton.disabled = true; // Disable if no API key
     }
@@ -938,6 +955,10 @@
         localStorage.setItem('anthropic_api_key', key);
         updateApiKeyStatus(true);
         addMessage('🎉 Awesome! Your brain is now connected! Let\'s do amazing things together! 🚀✨', false);
+        // Hide API key bar after successful connection
+        setTimeout(() => {
+          apiKeyContainer.classList.add('hidden');
+        }, 2000);
       } else {
         alert('⚠️ Oops! Please enter a valid API key (starts with sk-ant-)');
       }
@@ -1321,9 +1342,10 @@
             'x-api-key': apiKey,
             'anthropic-version': '2023-06-01'
           },
+          signal: AbortSignal.timeout(360000), // 6 minutes timeout (tripled from 2 minutes)
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: isThinkingMode ? 8192 : 2048,
+            max_tokens: isThinkingMode ? 147456 : 36864,
             system: systemPrompt,
             messages: conversationHistory,
             tools: [
