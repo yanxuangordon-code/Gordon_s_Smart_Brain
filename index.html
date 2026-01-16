@@ -1323,6 +1323,8 @@
       showTypingIndicator();
 
       try {
+        const startTime = Date.now();
+        
         // Using CORS proxy for GitHub Pages deployment
         const apiUrl = 'https://api.anthropic.com/v1/messages';
         const corsProxy = 'https://corsproxy.io/?';
