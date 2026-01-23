@@ -915,6 +915,8 @@
     let currentImage = null;
     let apiKey = '';
     let isThinkingMode = false; // Default to Quick Mode (checked = true on toggle)
+    let lastRequestTime = 0;
+    const MIN_REQUEST_INTERVAL = 100; // Minimum 0.1 second between requests
 
     // Mode toggle handler
     modeToggle.addEventListener('change', (e) => {
@@ -1275,6 +1277,14 @@
         return;
       }
 
+      // Rate limiting check
+      const now = Date.now();
+      const timeSinceLastRequest = now - lastRequestTime;
+      if (timeSinceLastRequest < MIN_REQUEST_INTERVAL) {
+        return; // Silently ignore if too fast
+      }
+      lastRequestTime = now;
+
       const imageToSend = currentImage;
       
       if (imageToSend) {
@@ -1347,7 +1357,7 @@
           signal: AbortSignal.timeout(360000), // 6 minutes timeout (tripled from 2 minutes)
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: isThinkingMode ? 147456 : 36864,
+            max_tokens: isThinkingMode ? 4096 : 1024,
             system: systemPrompt,
             messages: conversationHistory,
             tools: [
@@ -1410,6 +1420,8 @@
         // Provide helpful error message
         if (error.name === 'AbortError' || error.message.includes('timeout')) {
           addMessage('⏱️ Request timed out! The response was taking too long. Try:\n\n• Breaking your question into smaller parts\n• Asking a simpler question first\n• Checking your internet connection\n\nLet\'s try again! 🔄', false);
+        } else if (error.message.includes('rate limit') || error.message.includes('429')) {
+          addMessage('⚠️ Ask questions slower.', false);
         } else if (error.message.includes('CORS') || error.message.includes('fetch')) {
           addMessage('🌐 Connection issue detected. Make sure you\'re:\n\n• Using a valid API key\n• Connected to the internet\n• Not behind a restrictive firewall\n\nTry refreshing the page! 🔄', false);
         } else {
