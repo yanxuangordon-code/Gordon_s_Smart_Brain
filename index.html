@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+x<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -13,11 +13,19 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #667eea 100%);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
       height: 100vh;
       margin: 0;
       padding: 0;
       overflow: hidden;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .chat-container {
@@ -807,15 +815,20 @@
       </div>
     </div>
     <div class="feature-buttons">
-      <button class="feature-btn" id="webSearchBtn">🔍 Web Search</button>
+      <button class="feature-btn" id="generateImageBtn">🎨 Image</button>
       <button class="feature-btn" id="summarizeBtn">📄 Summarize</button>
       <button class="feature-btn" id="translateBtn">🌐 Translate</button>
       <button class="feature-btn" id="codeBtn">💻 Code</button>
       <button class="feature-btn" id="creativeBtn">✨ Creative</button>
       <button class="feature-btn" id="mathBtn">🔢 Math</button>
       <button class="feature-btn" id="explainBtn">🎓 Explain</button>
-      <button class="feature-btn" id="analyzeBtn">📊 Analyze</button>
       <button class="feature-btn" id="diagramBtn">📈 Diagram</button>
+      <button class="feature-btn" id="grammarBtn">📝 Grammar</button>
+      <button class="feature-btn" id="ideaBtn">💡 Ideas</button>
+      <button class="feature-btn" id="emailBtn">✉️ Email</button>
+      <button class="feature-btn" id="debugBtn">🐛 Debug</button>
+      <button class="feature-btn" id="compareBtn">⚖️ Compare</button>
+      <button class="feature-btn" id="proofreadBtn">✅ Proofread</button>
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="message assistant">
@@ -884,6 +897,18 @@
         <button class="modal-btn secondary" id="mathCancel">Cancel</button>
       </div>
     </div>
+  </div>
+
+  <div class="modal" id="generateImageModal">
+    <div class="modal-content">
+      <h3>🎨 Generate Realistic Image</h3>
+      <textarea id="generateImageText" rows="4" placeholder="Describe any image you want...&#10;Example: A professional photo of a mountain landscape at sunset"></textarea>
+      <div class="modal-buttons">
+        <button class="modal-btn primary" id="generateImageSubmit">Generate</button>
+        <button class="modal-btn secondary" id="generateImageCancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div></div>
   </div>
 
   <div class="modal" id="webSearchModal">
@@ -984,21 +1009,26 @@
     updateApiKeyStatus(!!apiKey);
 
     // Feature buttons
+    const generateImageBtn = document.getElementById('generateImageBtn');
     const summarizeBtn = document.getElementById('summarizeBtn');
     const translateBtn = document.getElementById('translateBtn');
     const codeBtn = document.getElementById('codeBtn');
     const creativeBtn = document.getElementById('creativeBtn');
     const mathBtn = document.getElementById('mathBtn');
     const explainBtn = document.getElementById('explainBtn');
-    const webSearchBtn = document.getElementById('webSearchBtn');
-    const analyzeBtn = document.getElementById('analyzeBtn');
     const diagramBtn = document.getElementById('diagramBtn');
+    const grammarBtn = document.getElementById('grammarBtn');
+    const ideaBtn = document.getElementById('ideaBtn');
+    const emailBtn = document.getElementById('emailBtn');
+    const debugBtn = document.getElementById('debugBtn');
+    const compareBtn = document.getElementById('compareBtn');
+    const proofreadBtn = document.getElementById('proofreadBtn');
 
     // Modals
+    const generateImageModal = document.getElementById('generateImageModal');
     const summarizeModal = document.getElementById('summarizeModal');
     const translateModal = document.getElementById('translateModal');
     const mathModal = document.getElementById('mathModal');
-    const webSearchModal = document.getElementById('webSearchModal');
 
     // Clear chat functionality
     clearChatBtn.addEventListener('click', () => {
@@ -1015,6 +1045,10 @@
     });
 
     // Feature button handlers
+    generateImageBtn.addEventListener('click', () => {
+      generateImageModal.style.display = 'flex';
+    });
+
     summarizeBtn.addEventListener('click', () => {
       summarizeModal.style.display = 'flex';
     });
@@ -1042,21 +1076,46 @@
       chatInput.focus();
     });
 
-    webSearchBtn.addEventListener('click', () => {
-      webSearchModal.style.display = 'flex';
-    });
-
-    analyzeBtn.addEventListener('click', () => {
-      chatInput.value = 'Analyze and provide insights on: ';
-      chatInput.focus();
-    });
-
     diagramBtn.addEventListener('click', () => {
       chatInput.value = 'Create a diagram showing: ';
       chatInput.focus();
     });
 
+    grammarBtn.addEventListener('click', () => {
+      chatInput.value = 'Check grammar and improve: ';
+      chatInput.focus();
+    });
+
+    ideaBtn.addEventListener('click', () => {
+      chatInput.value = 'Give me creative ideas for: ';
+      chatInput.focus();
+    });
+
+    emailBtn.addEventListener('click', () => {
+      chatInput.value = 'Write a professional email about: ';
+      chatInput.focus();
+    });
+
+    debugBtn.addEventListener('click', () => {
+      chatInput.value = 'Debug this code: ';
+      chatInput.focus();
+    });
+
+    compareBtn.addEventListener('click', () => {
+      chatInput.value = 'Compare and contrast: ';
+      chatInput.focus();
+    });
+
+    proofreadBtn.addEventListener('click', () => {
+      chatInput.value = 'Proofread and improve: ';
+      chatInput.focus();
+    });
+
     // Modal handlers
+    document.getElementById('generateImageCancelBtn').addEventListener('click', () => {
+      generateImageModal.style.display = 'none';
+    });
+
     document.getElementById('summarizeCancel').addEventListener('click', () => {
       summarizeModal.style.display = 'none';
     });
@@ -1069,8 +1128,127 @@
       mathModal.style.display = 'none';
     });
 
-    document.getElementById('webSearchCancel').addEventListener('click', () => {
-      webSearchModal.style.display = 'none';
+    document.getElementById('generateImageSubmit').addEventListener('click', async () => {
+      const prompt = document.getElementById('generateImageText').value.trim();
+      if (!prompt) return;
+      
+      generateImageModal.style.display = 'none';
+      document.getElementById('generateImageText').value = '';
+      
+      // Content filtering - block inappropriate content
+      const bannedWords = [
+        'nude', 'naked', 'nsfw', 'explicit', 'sexual', 'porn', 'xxx', 
+        'topless', 'underwear', 'lingerie', 'bikini', 'erotic', 'sensual',
+        'adult', 'mature', 'sexy', 'seductive', 'revealing', 'exposed',
+        'undressed', 'unclothed', 'bare', 'strip', 'provocative'
+      ];
+      const lowerPrompt = prompt.toLowerCase();
+      
+      // Check for banned words
+      const foundBanned = bannedWords.find(word => lowerPrompt.includes(word));
+      if (foundBanned) {
+        addMessage(`🚫 Content blocked: Your prompt contains inappropriate content ("${foundBanned}"). Please describe appropriate images only.`, false);
+        return;
+      }
+      
+      // Add user message
+      addMessage(`🎨 Generating image: "${prompt}"`, true);
+      
+      // Show loading
+      const loadingMsg = document.createElement('div');
+      loadingMsg.className = 'message assistant';
+      loadingMsg.id = 'imageGenerating';
+      loadingMsg.innerHTML = '<div class="message-content">🎨 Creating your image... This may take 10-20 seconds ✨</div>';
+      chatMessages.appendChild(loadingMsg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+      
+      try {
+        // Using Pollinations.ai free API for REALISTIC image generation
+        // Enhanced prompt for photorealistic style
+        const realisticPrompt = `photorealistic, high quality, detailed, realistic photo of ${prompt}`;
+        const imageUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(realisticPrompt)}?width=1024&height=1024&nologo=true&model=flux&enhance=true`;
+        
+        // Create image element
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          // Create canvas to add watermark
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          
+          // Draw image
+          ctx.drawImage(img, 0, 0);
+          
+          // Add watermark
+          ctx.font = 'bold 30px Arial';
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+          ctx.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+          ctx.lineWidth = 2;
+          const watermarkText = "Gordon's Smart Brain";
+          const textWidth = ctx.measureText(watermarkText).width;
+          const x = canvas.width - textWidth - 20;
+          const y = canvas.height - 20;
+          ctx.strokeText(watermarkText, x, y);
+          ctx.fillText(watermarkText, x, y);
+          
+          // Convert to data URL
+          const watermarkedImageUrl = canvas.toDataURL('image/png');
+          
+          document.getElementById('imageGenerating').remove();
+          
+          const messageDiv = document.createElement('div');
+          messageDiv.className = 'message assistant';
+          
+          const messageContent = document.createElement('div');
+          messageContent.className = 'message-content';
+          
+          const title = document.createElement('strong');
+          title.textContent = '✨ Generated Image:';
+          messageContent.appendChild(title);
+          messageContent.appendChild(document.createElement('br'));
+          
+          const imgElement = document.createElement('img');
+          imgElement.src = watermarkedImageUrl;
+          imgElement.className = 'message-image';
+          imgElement.style.cssText = 'max-width: 100%; border-radius: 10px; margin-top: 10px;';
+          messageContent.appendChild(imgElement);
+          messageContent.appendChild(document.createElement('br'));
+          
+          const downloadBtn = document.createElement('button');
+          downloadBtn.textContent = '💾 Download';
+          downloadBtn.style.cssText = 'display: inline-block; margin-top: 10px; padding: 6px 12px; background: #667eea; color: white; border: none; border-radius: 15px; font-size: 12px; cursor: pointer; font-weight: bold;';
+          downloadBtn.addEventListener('click', async () => {
+            try {
+              const link = document.createElement('a');
+              link.href = watermarkedImageUrl;
+              link.download = `gordon-brain-${Date.now()}.png`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+              downloadBtn.textContent = '✅ Downloaded!';
+              setTimeout(() => downloadBtn.textContent = '💾 Download', 2000);
+            } catch (error) {
+              alert('Download failed. Right-click the image and select "Save Image As"');
+            }
+          });
+          messageContent.appendChild(downloadBtn);
+          
+          messageDiv.appendChild(messageContent);
+          chatMessages.appendChild(messageDiv);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        };
+        img.onerror = () => {
+          document.getElementById('imageGenerating').remove();
+          addMessage('❌ Failed to generate image. Please try again with a different prompt.', false);
+        };
+        img.src = imageUrl;
+        
+      } catch (error) {
+        document.getElementById('imageGenerating').remove();
+        addMessage('❌ Image generation failed: ' + error.message, false);
+      }
     });
 
     document.getElementById('summarizeSubmit').addEventListener('click', () => {
@@ -1360,12 +1538,7 @@
             max_tokens: isThinkingMode ? 4096 : 1024,
             system: systemPrompt,
             messages: conversationHistory,
-            tools: [
-              {
-                type: "web_search_20250305",
-                name: "web_search"
-              }
-            ]
+            tools: []
           })
         });
 
